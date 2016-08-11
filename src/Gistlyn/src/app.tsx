@@ -26,7 +26,7 @@ import {
     CancelScript,
     EvaluateExpression,
     ScriptExecutionResult, ScriptStatus,
-    StoreGist, GithubFile
+    StoreGist, GithubFile, GetScriptIntellisense
 } from './Gistlyn.dtos';
 
 const ScriptStatusRunning = ["Started", "PrepareToRun", "Running"];
@@ -206,6 +206,25 @@ class App extends React.Component<any, any> {
         } else {
             this.saveGist();
         }
+    }
+
+    suggest = () => {
+        var request = new GetScriptIntellisense();
+        const main = this.getMainFile();
+        request.mainSource = main.content;
+        var codeMirror = document.getElementsByClassName("CodeMirror")[0]['CodeMirror'];
+        var posObj = codeMirror.getCursor();
+        var posIndex = 0;
+        var linesContent = request.mainSource.split('\n');
+        for (var i = 0; i < posObj.line; i++) {
+            posIndex += linesContent[i].length;
+        }
+        request.position = posIndex + posObj.ch;
+        client.post(request).then(r => {
+            console.log(r);
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     run = () => {
@@ -602,6 +621,9 @@ class App extends React.Component<any, any> {
             case "Alt-C":
                 capturedSnapshot = store.getState();
                 this.props.showDialog("console-viewer");
+                break;
+            case "Ctrl-Space":
+                this.suggest();
                 break;
         }
     }

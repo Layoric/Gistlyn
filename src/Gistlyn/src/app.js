@@ -157,6 +157,24 @@ System.register(['react', 'react-dom', 'react-ga', 'react-redux', './utils', './
                 function App() {
                     var _this = this;
                     _super.apply(this, arguments);
+                    this.suggest = function () {
+                        var request = new Gistlyn_dtos_1.GetScriptIntellisense();
+                        var main = _this.getMainFile();
+                        request.mainSource = main.content;
+                        var codeMirror = document.getElementsByClassName("CodeMirror")[0]['CodeMirror'];
+                        var posObj = codeMirror.getCursor();
+                        var posIndex = 0;
+                        var linesContent = request.mainSource.split('\n');
+                        for (var i = 0; i < posObj.line; i++) {
+                            posIndex += linesContent[i].length;
+                        }
+                        request.position = posIndex + posObj.ch;
+                        client.post(request).then(function (r) {
+                            console.log(r);
+                        }).catch(function (err) {
+                            console.log(err);
+                        });
+                    };
                     this.run = function () {
                         var main = _this.getMainFile();
                         if (!main)
@@ -532,6 +550,9 @@ System.register(['react', 'react-dom', 'react-ga', 'react-redux', './utils', './
                         case "Alt-C":
                             capturedSnapshot = state_1.store.getState();
                             this.props.showDialog("console-viewer");
+                            break;
+                        case "Ctrl-Space":
+                            this.suggest();
                             break;
                     }
                 };

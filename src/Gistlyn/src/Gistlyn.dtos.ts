@@ -1,6 +1,6 @@
 /* Options:
-Date: 2016-07-18 16:32:33
-Version: 4.061
+Date: 2016-08-10 21:29:38
+Version: 4.062
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://localhost:4000
 
@@ -98,10 +98,20 @@ export class ErrorInfo
     info: string;
 }
 
+export class DebugResponse
+{
+    appSettings: { [index:string]: string; };
+}
+
 export class StoreGistResponse
 {
     gist: string;
     responseStatus: ResponseStatus;
+}
+
+export class GetScriptIntellisenseResponse
+{
+    suggestions: string[];
 }
 
 export class HelloResponse
@@ -190,6 +200,23 @@ export class UnAssignRolesResponse
     responseStatus: ResponseStatus;
 }
 
+// @DataContract
+export class ConvertSessionToTokenResponse
+{
+    // @DataMember(Order=1)
+    meta: { [index:string]: string; };
+
+    // @DataMember(Order=2)
+    responseStatus: ResponseStatus;
+}
+
+// @Route("/debug")
+export class Debug implements IReturn<DebugResponse>
+{
+    createResponse() { return new DebugResponse(); }
+    getTypeName() { return "Debug"; }
+}
+
 // @Route("/github-proxy/{PathInfo*}")
 export class GithubProxy implements IReturn<string>
 {
@@ -208,6 +235,19 @@ export class StoreGist implements IReturn<StoreGistResponse>
     files: { [index:string]: GithubFile; };
     createResponse() { return new StoreGistResponse(); }
     getTypeName() { return "StoreGist"; }
+}
+
+// @Route("/scripts/{ScriptId}/suggest")
+export class GetScriptIntellisense implements IReturn<GetScriptIntellisenseResponse>
+{
+    scriptId: string;
+    mainSource: string;
+    position: number;
+    sources: string[];
+    packagesConfig: string;
+    references: AssemblyReference[];
+    createResponse() { return new GetScriptIntellisenseResponse(); }
+    getTypeName() { return "GetScriptIntellisense"; }
 }
 
 // @Route("/hello/{Name}")
@@ -257,6 +297,21 @@ export class CancelScript implements IReturn<CancelScriptResponse>
     scriptId: string;
     createResponse() { return new CancelScriptResponse(); }
     getTypeName() { return "CancelScript"; }
+}
+
+// @Route("/{Name}")
+export class FriendlyLinks
+{
+    name: string;
+    reload: boolean;
+}
+
+// @Route("/proxy")
+export class Proxy implements IReturn<string>
+{
+    url: string;
+    createResponse() { return ""; }
+    getTypeName() { return "Proxy"; }
 }
 
 // @Route("/auth")
@@ -347,4 +402,14 @@ export class UnAssignRoles implements IReturn<UnAssignRolesResponse>
     roles: string[];
     createResponse() { return new UnAssignRolesResponse(); }
     getTypeName() { return "UnAssignRoles"; }
+}
+
+// @Route("/session-to-token")
+// @DataContract
+export class ConvertSessionToToken implements IReturn<ConvertSessionToTokenResponse>
+{
+    // @DataMember(Order=1)
+    preserveSession: boolean;
+    createResponse() { return new ConvertSessionToTokenResponse(); }
+    getTypeName() { return "ConvertSessionToToken"; }
 }

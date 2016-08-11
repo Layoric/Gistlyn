@@ -31,7 +31,8 @@ export default class Editor extends React.Component<any, any> {
                 "Ctrl-Enter": cm => this.props.onShortcut("Ctrl-Enter"),
                 "Ctrl-S": cm => this.props.onShortcut("Ctrl-S"),
                 "Alt-S": cm => this.props.onShortcut("Alt-S"),
-                "Alt-C": cm => this.props.onShortcut("Alt-C")
+                "Alt-C": cm => this.props.onShortcut("Alt-C"),
+                "Ctrl-Space": cm => this.props.onShortcut("Ctrl-Space")
             }
         };
 

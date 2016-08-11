@@ -1,6 +1,6 @@
 /* Options:
-Date: 2016-07-18 16:32:33
-Version: 4.061
+Date: 2016-08-10 21:29:38
+Version: 4.062
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://localhost:4000
 
@@ -18,7 +18,7 @@ ExportAsTypes: True
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var GithubFile, ResponseStatus, AssemblyReference, ScriptExecutionResult, VariableInfo, ResponseError, ErrorInfo, StoreGistResponse, HelloResponse, RunScriptResponse, ScriptStateVariables, EvaluateExpressionResponse, CancelScriptResponse, AuthenticateResponse, AssignRolesResponse, UnAssignRolesResponse, GithubProxy, StoreGist, Hello, RunScript, GetScriptVariables, EvaluateExpression, CancelScript, Authenticate, AssignRoles, UnAssignRoles;
+    var GithubFile, ResponseStatus, AssemblyReference, ScriptExecutionResult, VariableInfo, ResponseError, ErrorInfo, DebugResponse, StoreGistResponse, GetScriptIntellisenseResponse, HelloResponse, RunScriptResponse, ScriptStateVariables, EvaluateExpressionResponse, CancelScriptResponse, AuthenticateResponse, AssignRolesResponse, UnAssignRolesResponse, ConvertSessionToTokenResponse, Debug, GithubProxy, StoreGist, GetScriptIntellisense, Hello, RunScript, GetScriptVariables, EvaluateExpression, CancelScript, FriendlyLinks, Proxy, Authenticate, AssignRoles, UnAssignRoles, ConvertSessionToToken;
     return {
         setters:[],
         execute: function() {
@@ -66,12 +66,24 @@ System.register([], function(exports_1, context_1) {
                 return ErrorInfo;
             }());
             exports_1("ErrorInfo", ErrorInfo);
+            DebugResponse = (function () {
+                function DebugResponse() {
+                }
+                return DebugResponse;
+            }());
+            exports_1("DebugResponse", DebugResponse);
             StoreGistResponse = (function () {
                 function StoreGistResponse() {
                 }
                 return StoreGistResponse;
             }());
             exports_1("StoreGistResponse", StoreGistResponse);
+            GetScriptIntellisenseResponse = (function () {
+                function GetScriptIntellisenseResponse() {
+                }
+                return GetScriptIntellisenseResponse;
+            }());
+            exports_1("GetScriptIntellisenseResponse", GetScriptIntellisenseResponse);
             HelloResponse = (function () {
                 function HelloResponse() {
                 }
@@ -123,6 +135,22 @@ System.register([], function(exports_1, context_1) {
                 return UnAssignRolesResponse;
             }());
             exports_1("UnAssignRolesResponse", UnAssignRolesResponse);
+            // @DataContract
+            ConvertSessionToTokenResponse = (function () {
+                function ConvertSessionToTokenResponse() {
+                }
+                return ConvertSessionToTokenResponse;
+            }());
+            exports_1("ConvertSessionToTokenResponse", ConvertSessionToTokenResponse);
+            // @Route("/debug")
+            Debug = (function () {
+                function Debug() {
+                }
+                Debug.prototype.createResponse = function () { return new DebugResponse(); };
+                Debug.prototype.getTypeName = function () { return "Debug"; };
+                return Debug;
+            }());
+            exports_1("Debug", Debug);
             // @Route("/github-proxy/{PathInfo*}")
             GithubProxy = (function () {
                 function GithubProxy() {
@@ -140,6 +168,15 @@ System.register([], function(exports_1, context_1) {
                 return StoreGist;
             }());
             exports_1("StoreGist", StoreGist);
+            // @Route("/scripts/{ScriptId}/suggest")
+            GetScriptIntellisense = (function () {
+                function GetScriptIntellisense() {
+                }
+                GetScriptIntellisense.prototype.createResponse = function () { return new GetScriptIntellisenseResponse(); };
+                GetScriptIntellisense.prototype.getTypeName = function () { return "GetScriptIntellisense"; };
+                return GetScriptIntellisense;
+            }());
+            exports_1("GetScriptIntellisense", GetScriptIntellisense);
             // @Route("/hello/{Name}")
             Hello = (function () {
                 function Hello() {
@@ -186,6 +223,22 @@ System.register([], function(exports_1, context_1) {
                 return CancelScript;
             }());
             exports_1("CancelScript", CancelScript);
+            // @Route("/{Name}")
+            FriendlyLinks = (function () {
+                function FriendlyLinks() {
+                }
+                return FriendlyLinks;
+            }());
+            exports_1("FriendlyLinks", FriendlyLinks);
+            // @Route("/proxy")
+            Proxy = (function () {
+                function Proxy() {
+                }
+                Proxy.prototype.createResponse = function () { return ""; };
+                Proxy.prototype.getTypeName = function () { return "Proxy"; };
+                return Proxy;
+            }());
+            exports_1("Proxy", Proxy);
             // @Route("/auth")
             // @Route("/auth/{provider}")
             // @Route("/authenticate")
@@ -219,6 +272,16 @@ System.register([], function(exports_1, context_1) {
                 return UnAssignRoles;
             }());
             exports_1("UnAssignRoles", UnAssignRoles);
+            // @Route("/session-to-token")
+            // @DataContract
+            ConvertSessionToToken = (function () {
+                function ConvertSessionToToken() {
+                }
+                ConvertSessionToToken.prototype.createResponse = function () { return new ConvertSessionToTokenResponse(); };
+                ConvertSessionToToken.prototype.getTypeName = function () { return "ConvertSessionToToken"; };
+                return ConvertSessionToToken;
+            }());
+            exports_1("ConvertSessionToToken", ConvertSessionToToken);
         }
     }
 });

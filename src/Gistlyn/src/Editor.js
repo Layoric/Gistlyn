@@ -50,7 +50,8 @@ System.register(['react', './utils', 'react-codemirror', "jspm_packages/npm/code
                             "Ctrl-Enter": function (cm) { return _this.props.onShortcut("Ctrl-Enter"); },
                             "Ctrl-S": function (cm) { return _this.props.onShortcut("Ctrl-S"); },
                             "Alt-S": function (cm) { return _this.props.onShortcut("Alt-S"); },
-                            "Alt-C": function (cm) { return _this.props.onShortcut("Alt-C"); }
+                            "Alt-C": function (cm) { return _this.props.onShortcut("Alt-C"); },
+                            "Ctrl-Space": function (cm) { return _this.props.onShortcut("Ctrl-Space"); }
                         }
                     };
                     var source = "";
